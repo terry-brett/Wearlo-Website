@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wearlo &mdash; Proximity Auto-Lock for Mac</title>
+    <meta name="description" content="Pair your Wear OS watch with your Mac. Walk away and it locks. Come back and it wakes for you." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+          --bg: #0d1a14;
+          --surface: #161f1c;
+          --border: #1f2a25;
+          --primary: #81C784;
+          --primary-dim: rgba(129, 199, 132, 0.12);
+          --primary-border: rgba(129, 199, 132, 0.3);
+          --text: #e4f1ec;
+          --muted: #7a8a82;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+          background: var(--bg);
+          color: var(--text);
+          font-family: 'Inter', sans-serif;
+          font-weight: 300;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Concentric proximity rings radiating from the app icon */
+        body::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          background-image: repeating-radial-gradient(
+            circle at 50% 35%,
+            rgba(129,199,132,0.08) 0,
+            rgba(129,199,132,0.08) 1px,
+            transparent 1px,
+            transparent 80px
+          );
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .glow {
+          position: fixed;
+          top: -300px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 900px;
+          height: 900px;
+          background: radial-gradient(circle, rgba(129, 199, 132, 0.15) 0%, transparent 60%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .container {
+          position: relative;
+          z-index: 1;
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 80px 24px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .app-icon {
+          width: 96px;
+          height: 96px;
+          background: var(--surface);
+          border-radius: 24px;
+          border: 1px solid var(--primary-border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 32px;
+          box-shadow: 0 0 60px rgba(129,199,132,0.2), 0 20px 40px rgba(0,0,0,0.4);
+          overflow: hidden;
+        }
+
+        .app-icon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .headline {
+          font-size: clamp(36px, 7vw, 56px);
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -2px;
+          color: var(--text);
+          margin-bottom: 20px;
+        }
+
+        .headline span {
+          color: var(--primary);
+        }
+
+        .subline {
+          font-size: 16px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+          max-width: 480px;
+          margin-bottom: 48px;
+        }
+
+        .downloads {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 16px;
+          margin-bottom: 64px;
+        }
+
+        .play-btn,
+        .store-btn {
+          display: inline-block;
+          transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .play-btn:hover,
+        .store-btn:hover {
+          opacity: 0.88;
+          transform: translateY(-2px);
+        }
+
+        .play-btn img,
+        .store-btn img {
+          height: 56px;
+          width: auto;
+          display: block;
+        }
+
+        .features {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 72px;
+        }
+
+        .pill {
+          background: var(--primary-dim);
+          border: 1px solid var(--primary-border);
+          border-radius: 100px;
+          padding: 6px 16px;
+          font-size: 13px;
+          font-weight: 400;
+          color: #a7d9aa;
+          letter-spacing: 0.02em;
+        }
+
+        .divider {
+          width: 100%;
+          height: 1px;
+          background: var(--border);
+          margin-bottom: 32px;
+        }
+
+        .footer-links {
+          display: flex;
+          gap: 32px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .footer-links a {
+          font-size: 13px;
+          font-weight: 400;
+          color: var(--muted);
+          text-decoration: none;
+          letter-spacing: 0.02em;
+          transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+          color: var(--text);
+        }
+
+        footer {
+          position: relative;
+          z-index: 1;
+          text-align: center;
+          padding: 24px;
+          font-size: 12px;
+          color: var(--muted);
+          border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+<div class="glow"></div>
+
+<div class="container">
+    <div class="app-icon">
+        <img src="wearlo_mac_os.png" alt="Wearlo icon" />
+    </div>
+
+    <h1 class="headline">Walk away.<br /><span>Mac locks itself.</span></h1>
+
+    <p class="subline">Pair your Wear OS watch with your Mac over secure Bluetooth. Step away and it locks. Come back and it wakes for you.</p>
+
+    <div class="downloads">
+        <a class="play-btn" href="https://play.google.com/store/apps/details?id=com.tdapps.wearlo" target="_blank" rel="noopener">
+            <img
+                    alt="Get it on Google Play"
+                    src="google-play-badge.svg" />
+        </a>
+        <a class="store-btn" href="https://github.com/terry-brett/wearloMacOs" target="_blank" rel="noopener">
+            <img
+                    alt="Get the Mac companion on GitHub"
+                    src="get-it-on-github.png" />
+        </a>
+    </div>
+
+    <div class="features">
+        <span class="pill">Wear OS</span>
+        <span class="pill">Auto-Lock</span>
+        <span class="pill">Auto-Wake</span>
+        <span class="pill">BLE Encrypted</span>
+        <span class="pill">Zero Servers</span>
+        <span class="pill">Proximity-aware</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <nav class="footer-links">
+        <a href="/privacy-policy/index.html">Privacy Policy</a>
+        <a href="/terms-and-conditions/index.html">Terms &amp; Conditions</a>
+    </nav>
+</div>
+
+<footer>
+    &copy; 2026 TD Apps &middot; Wearlo
+</footer>
+</body>
+</html>
