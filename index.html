@@ -76,8 +76,10 @@
           text-align: center;
         }
 
+       
         .app-icon {
-          width: 96px;
+          width: auto; 
+          padding: 16px 24px; 
           height: 96px;
           background: var(--surface);
           border-radius: 24px;
@@ -85,16 +87,25 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          gap: 16px; 
           margin-bottom: 32px;
           box-shadow: 0 0 60px rgba(129,199,132,0.2), 0 20px 40px rgba(0,0,0,0.4);
-          overflow: hidden;
         }
 
         .app-icon img {
-          width: 100%;
-          height: 100%;
           object-fit: cover;
           display: block;
+        }
+        
+        .mac-icon {
+          width: 56px; 
+          height: 56px;
+        }
+
+        .wear-icon {
+          width: 44px; 
+          height: 44px;
+          border-radius: 11px;
         }
 
         .headline {
@@ -202,6 +213,11 @@
           color: var(--muted);
           border-top: 1px solid var(--border);
         }
+        .border-white {
+          border: 1px solid #a1a1a0;
+          border-radius: 10px; 
+          padding: 2px;
+        }
     </style>
 </head>
 <body>
@@ -209,7 +225,8 @@
 
 <div class="container">
     <div class="app-icon">
-        <img src="wearlo_mac_os.png" alt="Wearlo icon" />
+        <img class="wear-icon" src="wearlo_wear_os.png" alt="Wearlo Wear OS icon" />
+        <img class="mac-icon" src="wearlo_mac_os.png" alt="Wearlo MacOS icon" />
     </div>
 
     <h1 class="headline">Walk away.<br /><span>Mac locks itself.</span></h1>
@@ -222,10 +239,8 @@
                     alt="Get it on Google Play"
                     src="google-play-badge.svg" />
         </a>
-        <a class="store-btn" href="https://github.com/terry-brett/wearloMacOs" target="_blank" rel="noopener">
-            <img
-                    alt="Get the Mac companion on GitHub"
-                    src="get-it-on-github.png" />
+        <a class="store-btn border-white" href="https://testflight.apple.com/join/GsFPQYN1" target="_blank" rel="noopener">
+            <img alt="Get the Mac companion on TestFlight" src="available-on-testflight.png" />
         </a>
     </div>
 
