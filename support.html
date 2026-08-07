@@ -184,13 +184,17 @@
         .then(response => response.json())
         .then(data => {
             // Data is an array of objects. We map to unique Model Names.
-            const uniqueModels = new Set();
+            const uniqueModels = new Map();
             data.forEach(d => {
                 if(d['Model Name']) {
-                    uniqueModels.add(d.Manufacturer + ' ' + d['Model Name']);
+                    const displayName = d.Manufacturer + ' ' + d['Model Name'];
+                    const corpus = (d.Brand + ' ' + d['Model Name'] + ' ' + d.Device).toLowerCase();
+                    uniqueModels.set(displayName, corpus);
                 }
             });
-            devices = Array.from(uniqueModels).sort();
+            devices = Array.from(uniqueModels.entries())
+                .map(([name, corpus]) => ({name, corpus}))
+                .sort((a,b) => a.name.localeCompare(b.name));
         })
         .catch(err => {
             console.error('Failed to load devices:', err);
@@ -204,16 +208,20 @@
             return;
         }
 
-        const matches = devices.filter(d => d.toLowerCase().includes(query));
+        const tokens = query.split(/\s+/).filter(t => t.length > 0);
+        
+        const matches = devices.filter(d => {
+            return tokens.every(token => d.corpus.includes(token));
+        });
         
         if (matches.length === 0) {
-            resultsContainer.innerHTML = '<div class="device-item">No matching devices found. Ensure your watch runs Wear OS.</div>';
+            resultsContainer.innerHTML = '<div class="device-item">No matching devices found.</div>';
             return;
         }
 
         let html = '';
         matches.slice(0, 10).forEach(match => {
-            html += `<div class="device-item"><span class="device-match">${match}</span> is supported.</div>`;
+            html += `<div class="device-item"><span class="device-match">${match.name}</span> is supported.</div>`;
         });
         if (matches.length > 10) {
             html += `<div class="device-item" style="font-style: italic;">...and ${matches.length - 10} more variations</div>`;
