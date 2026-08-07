@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support &mdash; Wearlo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+          --bg: #0d1a14;
+          --surface: #161f1c;
+          --border: #1f2a25;
+          --primary: #81C784;
+          --text: #e4f1ec;
+          --muted: #7a8a82;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          background: var(--bg);
+          color: var(--text);
+          font-family: 'Inter', sans-serif;
+          font-weight: 300;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+        .container {
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 80px 24px;
+          flex: 1;
+        }
+        h1 {
+          font-size: 36px;
+          font-weight: 700;
+          color: var(--text);
+          margin-bottom: 24px;
+        }
+        p {
+          font-size: 16px;
+          line-height: 1.7;
+          color: var(--muted);
+          margin-bottom: 24px;
+        }
+        a.support-link {
+          display: inline-block;
+          background: var(--primary);
+          color: var(--bg);
+          padding: 12px 24px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: opacity 0.2s;
+        }
+        a.support-link:hover {
+          opacity: 0.9;
+        }
+        .footer-links {
+          margin-top: 64px;
+        }
+        .footer-links a {
+          font-size: 14px;
+          color: var(--muted);
+          text-decoration: none;
+        }
+        .footer-links a:hover {
+          color: var(--text);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Support</h1>
+    <p>Need help with Wearlo? Have a feature request or found a bug? We're here to help.</p>
+    <p>You can reach our support team directly via email. We typically respond within 24-48 hours.</p>
+    <a class="support-link" href="mailto:support@wearlo.app">Email Support</a>
+    
+    <div class="footer-links">
+        <a href="/">&larr; Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
