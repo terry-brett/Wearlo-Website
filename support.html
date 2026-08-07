@@ -38,6 +38,13 @@
           color: var(--text);
           margin-bottom: 24px;
         }
+        h2 {
+          font-size: 24px;
+          color: var(--text);
+          margin-bottom: 24px;
+          font-weight: 600;
+          margin-top: 48px;
+        }
         p {
           font-size: 16px;
           line-height: 1.7;
@@ -57,6 +64,58 @@
         a.support-link:hover {
           opacity: 0.9;
         }
+        .search-container {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 24px;
+          margin-bottom: 48px;
+        }
+        .search-container input {
+          width: 100%;
+          padding: 12px 16px;
+          border-radius: 8px;
+          border: 1px solid var(--border);
+          background: var(--bg);
+          color: var(--text);
+          font-size: 16px;
+          font-family: inherit;
+          margin-bottom: 16px;
+        }
+        .search-container input:focus {
+          outline: none;
+          border-color: var(--primary);
+        }
+        #results-container {
+          max-height: 200px;
+          overflow-y: auto;
+          font-size: 15px;
+          color: var(--muted);
+        }
+        .device-item {
+          padding: 8px 0;
+          border-bottom: 1px solid var(--border);
+        }
+        .device-item:last-child {
+          border-bottom: none;
+        }
+        .device-match {
+          color: var(--text);
+          font-weight: 500;
+        }
+        .faq-item {
+          margin-bottom: 32px;
+        }
+        .faq-item h3 {
+          font-size: 18px;
+          color: var(--primary);
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+        .faq-item p {
+          font-size: 15px;
+          margin-bottom: 0;
+        }
         .footer-links {
           margin-top: 64px;
         }
@@ -73,13 +132,95 @@
 <body>
 <div class="container">
     <h1>Support</h1>
-    <p>Need help with Wearlo? Have a feature request or found a bug? We're here to help.</p>
-    <p>You can reach our support team directly via email. We typically respond within 24-48 hours.</p>
+    <p>Need help with Wearlo? Have a feature request or found a bug?</p>
+    <p>Reach out directly via email. Responses are typically sent within 24-48 hours.</p>
     <a class="support-link" href="mailto:support@wearlo.app">Email Support</a>
+    
+    <h2>Compatible Devices</h2>
+    <div class="search-container">
+        <input type="text" id="device-search" autocomplete="off" placeholder="Search your watch model (e.g. Pixel Watch 3)" />
+        <div id="results-container">Type to search the compatibility list.</div>
+    </div>
+    
+    <h2>Frequently Asked Questions</h2>
+    
+    <div class="faq-item">
+        <h3>How do "Safe Networks" work?</h3>
+        <p>Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your Mac is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your Mac will stay unlocked even if you walk away or your watch disconnects. Note: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work, as it is the only way the app can read the name of the WiFi network you are connected to.</p>
+    </div>
+    
+    <div class="faq-item">
+        <h3>What is the Lock Delay setting?</h3>
+        <p>The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your Mac locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
+    </div>
+    
+    <div class="faq-item">
+        <h3>What is Wake Distance and how does it work?</h3>
+        <p>Wake Distance controls how close you need to be for the Mac's screen to automatically turn on as you approach. You can configure this threshold between 0.1 and 1.0 meters. When your Mac is asleep and your watch crosses into this radius, Wearlo automatically wakes the display so it's ready for you to unlock. To save power, there is a built-in 10-second cooldown between wake commands.</p>
+    </div>
+    
+    <div class="faq-item">
+        <h3>What happens if the watch battery dies or disconnects?</h3>
+        <p>By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your Mac will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your Mac will lock itself the moment the watch connection is lost. To prevent frustrating lockouts when turning on your computer, Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
+    </div>
+    
+    <div class="faq-item">
+        <h3>Can the Mac app pair with multiple watches?</h3>
+        <p>No. The Wearlo Mac app's secure storage system is designed to retain the cryptographic pairing credentials for exactly one watch at a time. If you pair a new watch, it will securely overwrite the previous watch's data. However, a single watch can be paired to multiple different Macs, as the watch stores a unique Mac Identifier for each computer it pairs with.</p>
+    </div>
     
     <div class="footer-links">
         <a href="/">&larr; Back to Home</a>
     </div>
 </div>
+
+<script>
+    let devices = [];
+    const searchInput = document.getElementById('device-search');
+    const resultsContainer = document.getElementById('results-container');
+
+    // Fetch the devices.json file
+    fetch('/devices.json')
+        .then(response => response.json())
+        .then(data => {
+            // Data is an array of objects. We map to unique Model Names.
+            const uniqueModels = new Set();
+            data.forEach(d => {
+                if(d['Model Name']) {
+                    uniqueModels.add(d.Manufacturer + ' ' + d['Model Name']);
+                }
+            });
+            devices = Array.from(uniqueModels).sort();
+        })
+        .catch(err => {
+            console.error('Failed to load devices:', err);
+            resultsContainer.innerHTML = 'Unable to load devices list at this time.';
+        });
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (query.length === 0) {
+            resultsContainer.innerHTML = 'Type to search the compatibility list.';
+            return;
+        }
+
+        const matches = devices.filter(d => d.toLowerCase().includes(query));
+        
+        if (matches.length === 0) {
+            resultsContainer.innerHTML = '<div class="device-item">No matching devices found. Ensure your watch runs Wear OS.</div>';
+            return;
+        }
+
+        let html = '';
+        matches.slice(0, 10).forEach(match => {
+            html += `<div class="device-item"><span class="device-match">${match}</span> is supported.</div>`;
+        });
+        if (matches.length > 10) {
+            html += `<div class="device-item" style="font-style: italic;">...and ${matches.length - 10} more variations</div>`;
+        }
+        
+        resultsContainer.innerHTML = html;
+    });
+</script>
 </body>
 </html>
