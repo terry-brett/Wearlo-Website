@@ -1,189 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Support &mdash; Wearlo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support — Wearlo</title>
+    <meta name="description" content="Get support for Wearlo">
+    <link rel="canonical" href="https://wearlo.app/support.html">
+    <meta property="og:title" content="Support — Wearlo">
+    <meta property="og:description" content="Get support for Wearlo">
+    <meta property="og:url" content="https://wearlo.app/support.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://wearlo.app/wearlo_wear_os.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'var(--background)',
+                        foreground: 'var(--foreground)',
+                        primary: {
+                            DEFAULT: 'var(--primary)',
+                            foreground: 'var(--primary-foreground)',
+                        },
+                        muted: {
+                            DEFAULT: 'var(--muted)',
+                            foreground: 'var(--muted-foreground)',
+                        },
+                        surface: 'var(--surface)',
+                        card: 'var(--card)',
+                        border: 'var(--border)',
+                        accent: 'var(--accent)',
+                        emerald: {
+                            DEFAULT: 'var(--emerald)',
+                            500: 'var(--emerald)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
-          --bg: #0d1a14;
-          --surface: #161f1c;
-          --border: #1f2a25;
-          --primary: #81C784;
-          --text: #e4f1ec;
-          --muted: #7a8a82;
+            --radius: 1rem;
+            --background: oklch(100% 0 0);
+            --foreground: oklch(21% .03 260);
+            --card: oklch(100% 0 0);
+            --card-foreground: oklch(21% .03 260);
+            --primary: oklch(72% .13 233);
+            --primary-foreground: oklch(100% 0 0);
+            --muted: oklch(97% .003 250);
+            --muted-foreground: oklch(55% .02 260);
+            --accent: oklch(95% .03 233);
+            --border: oklch(92% .005 260);
+            --surface: oklch(98.5% .002 250);
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-          background: var(--bg);
-          color: var(--text);
-          font-family: 'Inter', sans-serif;
-          font-weight: 300;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-        }
-        .container {
-          max-width: 680px;
-          margin: 0 auto;
-          padding: 80px 24px;
-          flex: 1;
-        }
-        h1 {
-          font-size: 36px;
-          font-weight: 700;
-          color: var(--text);
-          margin-bottom: 24px;
-        }
-        h2 {
-          font-size: 24px;
-          color: var(--text);
-          margin-bottom: 24px;
-          font-weight: 600;
-          margin-top: 48px;
-        }
-        p {
-          font-size: 16px;
-          line-height: 1.7;
-          color: var(--muted);
-          margin-bottom: 24px;
-        }
-        a.support-link {
-          display: inline-block;
-          background: var(--primary);
-          color: var(--bg);
-          padding: 12px 24px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          transition: opacity 0.2s;
-        }
-        a.support-link:hover {
-          opacity: 0.9;
-        }
-        .search-container {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 24px;
-          margin-bottom: 48px;
-        }
-        .search-container input {
-          width: 100%;
-          padding: 12px 16px;
-          border-radius: 8px;
-          border: 1px solid var(--border);
-          background: var(--bg);
-          color: var(--text);
-          font-size: 16px;
-          font-family: inherit;
-          margin-bottom: 16px;
-        }
-        .search-container input:focus {
-          outline: none;
-          border-color: var(--primary);
-        }
-        #results-container {
-          max-height: 200px;
-          overflow-y: auto;
-          font-size: 15px;
-          color: var(--muted);
-        }
-        .device-item {
-          padding: 8px 0;
-          border-bottom: 1px solid var(--border);
-        }
-        .device-item:last-child {
-          border-bottom: none;
-        }
-        .device-match {
-          color: var(--text);
-          font-weight: 500;
-        }
-        .faq-item {
-          margin-bottom: 32px;
-        }
-        .faq-item h3 {
-          font-size: 18px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 500;
-        }
-        .faq-item p {
-          font-size: 15px;
-          margin-bottom: 0;
-        }
-        .footer-links {
-          margin-top: 64px;
-        }
-        .footer-links a {
-          font-size: 14px;
-          color: var(--muted);
-          text-decoration: none;
-        }
-        .footer-links a:hover {
-          color: var(--text);
+            background-color: var(--background);
+            color: var(--foreground);
         }
     </style>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
-<div class="container">
-    <h1>Support</h1>
-    <p>Need help with Wearlo? Have a feature request or found a bug?</p>
-    <p>Reach out directly via email. Responses are typically sent within 24-48 hours.</p>
-    <a class="support-link" href="mailto:support@wearlo.app">Email Support</a>
+<body class="relative min-h-screen overflow-x-hidden antialiased flex flex-col">
     
-    <h2>Compatible Devices</h2>
-    <div class="search-container">
-        <input type="text" id="device-search" autocomplete="off" placeholder="Search your watch model (e.g. Pixel Watch 3)" />
-        <div id="results-container">Type to search the compatibility list.</div>
-    </div>
-    
-    <h2>Frequently Asked Questions</h2>
-    
-    <div class="faq-item">
-        <h3>How do "Safe Networks" work?</h3>
-        <p>Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your Mac is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your Mac will stay unlocked even if you walk away or your watch disconnects. Note: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work, as it is the only way the app can read the name of the WiFi network you are connected to.</p>
-    </div>
-    
-    <div class="faq-item">
-        <h3>What is the Lock Delay setting?</h3>
-        <p>The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your Mac locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
-    </div>
-    
-    <div class="faq-item">
-        <h3>What is Wake Distance and how does it work?</h3>
-        <p>Wake Distance controls how close you need to be for the Mac's screen to automatically turn on as you approach. You can configure this threshold between 0.1 and 1.0 meters. When your Mac is asleep and your watch crosses into this radius, Wearlo automatically wakes the display so it's ready for you to unlock. To save power, there is a built-in 10-second cooldown between wake commands.</p>
-    </div>
-    
-    <div class="faq-item">
-        <h3>What happens if the watch battery dies or disconnects?</h3>
-        <p>By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your Mac will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your Mac will lock itself the moment the watch connection is lost. To prevent frustrating lockouts when turning on your computer, Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
-    </div>
-    
-    <div class="faq-item">
-        <h3>Can the Mac app pair with multiple watches?</h3>
-        <p>No. The Wearlo Mac app's secure storage system is designed to retain the cryptographic pairing credentials for exactly one watch at a time. If you pair a new watch, it will securely overwrite the previous watch's data. However, a single watch can be paired to multiple different Macs, as the watch stores a unique Mac Identifier for each computer it pairs with.</p>
-    </div>
-    
-    <div class="footer-links">
-        <a href="/">&larr; Back to Home</a>
-    </div>
-</div>
+    <header class="relative z-10 mx-auto w-full max-w-6xl flex items-center justify-between px-6 py-6">
+        <a href="index.html" class="flex items-center gap-3">
+            <img src="wearlo_wear_os.png" alt="Wearlo Logo" class="size-9 rounded-xl" width="36" height="36">
+            <span class="font-display text-lg font-semibold tracking-tight">Wearlo</span>
+        </a>
+        <nav class="hidden items-center gap-8 text-sm text-muted-foreground sm:flex">
+            <a href="index.html#features" class="transition-colors hover:text-foreground">Features</a>
+            <a href="index.html#how" class="transition-colors hover:text-foreground">How it works</a>
+            <a href="index.html#download" class="rounded-full bg-primary px-4 py-2 font-medium text-primary-foreground transition-opacity hover:opacity-90">Download</a>
+        </nav>
+    </header>
 
+    <main class="relative z-10 flex-1 mx-auto w-full max-w-3xl px-6 py-12">
+        <h1 class="text-4xl font-bold mb-6">Support</h1>
+        <p class="text-lg text-muted-foreground mb-4">Need help with Wearlo? Have a feature request or found a bug?</p>
+        <p class="text-lg text-muted-foreground mb-8">Reach out directly via email. Responses are typically sent within 24-48 hours.</p>
+        <a href="mailto:support@wearlo.app" class="inline-block bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl transition hover:opacity-90">Email Support</a>
+        
+        <h2 class="text-2xl font-semibold mt-16 mb-6">Compatible Devices</h2>
+        <div class="bg-surface border border-border rounded-2xl p-6 mb-12">
+            <input type="text" id="device-search" autocomplete="off" placeholder="Search your watch model (e.g. Pixel Watch 3)" class="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-base mb-4 focus:outline-none focus:border-primary transition-colors" />
+            <div id="results-container" class="max-h-[200px] overflow-y-auto text-sm text-muted-foreground">Type to search the compatibility list.</div>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mt-12 mb-8">Frequently Asked Questions</h2>
+        
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">How do "Safe Networks" work?</h3>
+            <p class="text-muted-foreground leading-relaxed">Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your Mac is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your Mac will stay unlocked even if you walk away or your watch disconnects. Note: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work, as it is the only way the app can read the name of the WiFi network you are connected to.</p>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">What is the Lock Delay setting?</h3>
+            <p class="text-muted-foreground leading-relaxed">The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your Mac locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">What is Wake Distance and how does it work?</h3>
+            <p class="text-muted-foreground leading-relaxed">Wake Distance controls how close you need to be for the Mac's screen to automatically turn on as you approach. You can configure this threshold between 0.1 and 1.0 meters. When your Mac is asleep and your watch crosses into this radius, Wearlo automatically wakes the display so it's ready for you to unlock. To save power, there is a built-in 10-second cooldown between wake commands.</p>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">What happens if the watch battery dies or disconnects?</h3>
+            <p class="text-muted-foreground leading-relaxed">By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your Mac will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your Mac will lock itself the moment the watch connection is lost. To prevent frustrating lockouts when turning on your computer, Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">Can the Mac app pair with multiple watches?</h3>
+            <p class="text-muted-foreground leading-relaxed">No. The Wearlo Mac app's secure storage system is designed to retain the cryptographic pairing credentials for exactly one watch at a time. If you pair a new watch, it will securely overwrite the previous watch's data. However, a single watch can be paired to multiple different Macs, as the watch stores a unique Mac Identifier for each computer it pairs with.</p>
+        </div>
+    </main>
+
+    <footer class="relative z-10 border-t border-border mt-auto">
+        <div class="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-muted-foreground sm:flex-row">
+            <div class="flex items-center gap-6">
+                <a href="privacy-policy/index.html" class="hover:text-foreground">Privacy Policy</a>
+                <a href="terms-and-conditions/index.html" class="hover:text-foreground">Terms & Conditions</a>
+                <a href="support.html" class="hover:text-foreground">Support</a>
+            </div>
+            <p>&copy; 2026 TD Apps &middot; Wearlo</p>
+        </div>
+    </footer>
+
+<style>
+    .device-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .device-item:last-child { border-bottom: none; }
+    .device-match { color: var(--foreground); font-weight: 500; }
+</style>
 <script>
     let devices = [];
     const searchInput = document.getElementById('device-search');
     const resultsContainer = document.getElementById('results-container');
 
-    // Fetch the devices.json file
     fetch('/devices.json')
         .then(response => response.json())
         .then(data => {
-            // Data is an array of objects. We map to unique Model Names.
             const uniqueModels = new Map();
             data.forEach(d => {
                 if(d['Model Name']) {
