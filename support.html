@@ -99,27 +99,44 @@
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">How do "Safe Networks" work?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your Mac is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your Mac will stay unlocked even if you walk away or your watch disconnects. Note: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work, as it is the only way the app can read the name of the WiFi network you are connected to.</p>
+            <p class="text-muted-foreground leading-relaxed">Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your computer is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your computer will stay unlocked even if you walk away or your watch disconnects. Note for Mac users: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work.</p>
         </div>
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">What is the Lock Delay setting?</h3>
-            <p class="text-muted-foreground leading-relaxed">The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your Mac locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
+            <p class="text-muted-foreground leading-relaxed">The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your computer locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
         </div>
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">What is Wake Distance and how does it work?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wake Distance controls how close you need to be for the Mac's screen to automatically turn on as you approach. You can configure this threshold between 0.1 and 1.0 meters. When your Mac is asleep and your watch crosses into this radius, Wearlo automatically wakes the display so it's ready for you to unlock. To save power, there is a built-in 10-second cooldown between wake commands.</p>
+            <p class="text-muted-foreground leading-relaxed">Wake Distance controls how close you need to be for the computer's screen to automatically turn on as you approach. When your computer is asleep and your watch crosses into this radius, Wearlo automatically wakes the display (e.g. activating the Windows Hello camera or Mac login screen) so it's ready for you to unlock.</p>
         </div>
-        
+
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">What happens if the watch battery dies or disconnects?</h3>
-            <p class="text-muted-foreground leading-relaxed">By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your Mac will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your Mac will lock itself the moment the watch connection is lost. To prevent frustrating lockouts when turning on your computer, Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
+            <p class="text-muted-foreground leading-relaxed">By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your computer will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your computer will lock itself the moment the watch connection is lost. Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
         </div>
         
         <div class="mb-8">
-            <h3 class="text-lg font-semibold text-primary mb-2">Can the Mac app pair with multiple watches?</h3>
-            <p class="text-muted-foreground leading-relaxed">No. The Wearlo Mac app's secure storage system is designed to retain the cryptographic pairing credentials for exactly one watch at a time. If you pair a new watch, it will securely overwrite the previous watch's data. However, a single watch can be paired to multiple different Macs, as the watch stores a unique Mac Identifier for each computer it pairs with.</p>
+            <h3 class="text-lg font-semibold text-primary mb-2">Can the desktop app pair with multiple watches?</h3>
+            <p class="text-muted-foreground leading-relaxed">No. The Wearlo desktop app's secure storage system is designed to retain the cryptographic pairing credentials for exactly one watch at a time. If you pair a new watch, it will securely overwrite the previous watch's data. However, a single watch can be paired to multiple different computers, as the watch stores a unique Identifier for each computer it pairs with.</p>
+        </div>
+
+        <h2 class="text-2xl font-semibold mt-16 mb-8 border-t border-border pt-12">Windows</h2>
+
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">Why isn't my PC waking up when I walk up to it?</h3>
+            <p class="text-muted-foreground leading-relaxed">When your PC idles, Windows power management may suspend background apps and power down the Bluetooth adapter. If Bluetooth is suspended, the PC cannot detect your watch. To fix this, Wearlo includes a "Keep Awake Service". You can configure this slider in Settings (e.g. for 15 minutes) to keep the CPU and Bluetooth radio alive after locking, while still allowing your screens to power off normally to save energy.</p>
+        </div>
+
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">My PC locked while I was sitting right in front of it. How do I fix this?</h3>
+            <p class="text-muted-foreground leading-relaxed">If your body or hand blocks the watch's direct line of sight to the PC, the Bluetooth signal strength can drop significantly. Wearlo has a built-in "Obstruction Guard" (defaulting to 3 seconds) that provides a grace period for temporary blockages. You can increase this delay in Settings.</p>
+        </div>
+
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">What do the Advanced Proximity (Power User) settings do?</h3>
+            <p class="text-muted-foreground leading-relaxed">Wearlo for Windows includes advanced sliders to precisely tune the distance algorithm. You can manually adjust the baseline 1-meter signal calibration (TxPower) if your watch consistently reads too close or too far. You can also adjust the Environmental Signal Falloff to account for reflective rooms (like metal desks) or dense obstacles (like large monitors), and tweak the Body Obstruction Filter to ignore weak readings.</p>
         </div>
     </main>
 
