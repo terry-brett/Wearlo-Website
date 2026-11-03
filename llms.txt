@@ -1,0 +1,38 @@
+# Wearlo
+
+> Proximity auto-lock and auto-wake for Mac and Windows using your Wear OS smartwatch over encrypted Bluetooth Low Energy (BLE). Walk away and your computer locks itself; come back and it wakes for you.
+
+Wearlo pairs your Wear OS watch directly with your macOS or Windows computer over an encrypted Bluetooth Low Energy connection. It operates completely offline with zero servers, no accounts, and no telemetry—everything stays strictly between your watch and your computer.
+
+## Key Features
+
+- **Auto-Lock**: Step out of Bluetooth range and your computer locks itself automatically. Includes a customizable Lock Delay (0–60 seconds, default 3s) and Obstruction Guard to prevent accidental locking from brief signal dips.
+- **Auto-Wake**: Walk back to your desk and your screen wakes up automatically, ready for Windows Hello or Mac login.
+- **BLE Encrypted**: Direct encrypted Bluetooth Low Energy link between your watch and computer.
+- **Zero Servers & Private by Design**: No accounts, no cloud, no tracking, and no telemetry. Works completely offline.
+- **Proximity-Aware**: Adjustable distance thresholds, Wake Distance, and advanced calibration controls (TxPower, Environmental Signal Falloff, Body Obstruction Filter on Windows).
+- **Safe Networks**: Bypass proximity auto-lock automatically when connected to trusted Wi-Fi networks (such as your home Wi-Fi).
+- **Cross-Platform**: One Wear OS watch app can pair with multiple Mac and Windows computers.
+
+## How It Works
+
+1. **Install on your watch**: Download Wearlo for Wear OS from Google Play.
+2. **Install on your computer**: Download the companion app from the Mac App Store (macOS) or Microsoft Store (Windows).
+3. **Pair once, forget it**: Pair over Bluetooth in seconds. From then on, your computer locks when you walk away and wakes when you return.
+
+## Downloads
+
+- [Wearlo for Wear OS (Google Play)](https://play.google.com/store/apps/details?id=com.tdapps.wearlo): Smartwatch app for Wear OS devices.
+- [Wearlo for macOS (Mac App Store)](https://apps.apple.com/app/wearlo/id6780968652): Desktop companion app for Mac.
+- [Wearlo for Windows (Microsoft Store)](https://apps.microsoft.com/detail/9NHGQ5JB027K): Desktop companion app for Windows PC.
+
+## Pages
+
+- [Home](https://wearlo.app/): Overview of Wearlo features, how it works, privacy design, and download links.
+- [Support & FAQ](https://wearlo.app/support.html): Device compatibility checker, troubleshooting guides (Safe Networks, Lock Delay, Wake Distance, Windows Keep Awake Service, Obstruction Guard), and support contact (`support@wearlo.app`).
+- [Compatible Devices Database](https://wearlo.app/devices.json): JSON list of supported Wear OS smartwatch models.
+
+## Optional
+
+- [Privacy Policy](https://wearlo.app/privacy-policy/index.html): Details on Wearlo's zero-data-collection privacy policy.
+- [Terms & Conditions](https://wearlo.app/terms-and-conditions/index.html): License and terms of use for Wearlo.
