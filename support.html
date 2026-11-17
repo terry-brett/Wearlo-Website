@@ -235,11 +235,6 @@
         color: #dc2626;
         border-color: #fecaca;
     }
-    .wearos-tag {
-        color: #15803d;
-        font-size: 12px;
-        font-weight: 500;
-    }
 </style>
 <script>
     (function() {
@@ -345,7 +340,7 @@
                             Not supported
                         </div>
                         <p class="text-sm text-foreground mb-1 leading-snug">
-                            "<span class="font-semibold">${escapeHtml(rawVal.trim())}</span>" isn't on our list. Wearlo requires a Wear OS watch.
+                            "<span class="font-semibold">${escapeHtml(rawVal.trim())}</span>" isn't on our list. Wearlo requires Wear OS 3.5+ (Android 12+).
                         </p>
                         <p class="text-xs text-muted-foreground">
                             Think this is a mistake? <a href="mailto:support@wearlo.app?subject=Device%20compatibility:%20${encodedQuery}" class="text-primary hover:underline font-medium">Let us know</a>.
@@ -368,9 +363,8 @@
             `;
 
             matches.slice(0, 10).forEach(match => {
-                html += `<div class="device-row flex items-center justify-between text-sm py-1.5">
+                html += `<div class="device-row text-sm py-1.5">
                     <span class="font-medium">${escapeHtml(match.name)}</span>
-                    <span class="wearos-tag">Wear OS</span>
                 </div>`;
             });
 
