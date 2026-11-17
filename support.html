@@ -61,6 +61,7 @@
             --accent: oklch(95% .03 233);
             --border: oklch(92% .005 260);
             --surface: oklch(98.5% .002 250);
+            --emerald: oklch(70% .15 155);
         }
         body {
             background-color: var(--background);
@@ -90,10 +91,50 @@
         <a href="mailto:support@wearlo.app" class="inline-block bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl transition hover:opacity-90">Email Support</a>
         
         <h2 class="text-2xl font-semibold mt-16 mb-6">Compatible Devices</h2>
-        <div class="bg-surface border border-border rounded-2xl p-6 mb-12">
-            <input type="text" id="device-search" autocomplete="off" placeholder="Search your watch model (e.g. Pixel Watch 3)" class="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-base mb-4 focus:outline-none focus:border-primary transition-colors" />
-            <div id="results-container" class="max-h-[200px] overflow-y-auto text-sm text-muted-foreground">Type to search the compatibility list.</div>
-        </div>
+        <search class="block bg-surface border border-border rounded-2xl p-6 mb-12">
+            <label for="device-search" class="sr-only">Search your watch model</label>
+            <div class="relative mb-4">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground" aria-hidden="true">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input
+                    type="search"
+                    id="device-search"
+                    name="device-search"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    enterkeyhint="search"
+                    placeholder="Search your watch model (e.g. Pixel Watch 3)"
+                    class="w-full pl-10 pr-10 py-3 rounded-xl border border-border bg-background text-foreground text-base focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/70"
+                />
+                <button
+                    type="button"
+                    id="clear-search"
+                    class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-r-xl"
+                    aria-label="Clear search"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="results-container" aria-live="polite" class="max-h-[220px] overflow-y-auto pr-1 text-sm text-muted-foreground">
+                <div class="py-1">
+                    <p class="mb-3">Type to search compatible Wear OS watches.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                        <span class="text-muted-foreground/80">Quick check:</span>
+                        <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">Pixel Watch 3</button>
+                        <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">Galaxy Watch7</button>
+                        <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">OnePlus Watch 2</button>
+                    </div>
+                </div>
+            </div>
+        </search>
         
         <h2 class="text-2xl font-semibold mt-12 mb-8">Frequently Asked Questions</h2>
         
@@ -152,90 +193,204 @@
     </footer>
 
 <style>
-    .device-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .device-item:last-child { border-bottom: none; }
-    .device-match { color: var(--foreground); font-weight: 500; }
-    .device-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 6px; }
-    .device-status.ok { color: #16a34a; }
-    .device-status.no { color: #dc2626; }
-    .device-note { color: var(--muted-foreground); line-height: 1.5; }
-    .device-note a { color: var(--primary); text-decoration: underline; }
+    #results-container::-webkit-scrollbar {
+        width: 5px;
+    }
+    #results-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #results-container::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 9999px;
+    }
+    #device-search::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    .device-row {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border);
+        color: var(--foreground);
+    }
+    .device-row:last-child {
+        border-bottom: none;
+    }
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid transparent;
+    }
+    .status-pill-ok {
+        background-color: color-mix(in oklab, var(--emerald) 12%, white);
+        color: #15803d;
+        border-color: color-mix(in oklab, var(--emerald) 35%, white);
+    }
+    .status-pill-no {
+        background-color: #fef2f2;
+        color: #dc2626;
+        border-color: #fecaca;
+    }
+    .wearos-tag {
+        color: #15803d;
+        font-size: 12px;
+        font-weight: 500;
+    }
 </style>
 <script>
-    let devices = [];
-    let devicesLoaded = false;
-    const searchInput = document.getElementById('device-search');
-    const resultsContainer = document.getElementById('results-container');
+    (function() {
+        let devices = [];
+        let devicesLoaded = false;
+        const searchInput = document.getElementById('device-search');
+        const clearBtn = document.getElementById('clear-search');
+        const resultsContainer = document.getElementById('results-container');
 
-    const escapeHtml = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    // Ignore spaces/dashes so "watch3", "watch 3" and "watch-3" all match
-    const squash = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const initialEmptyHtml = `
+            <div class="py-1">
+                <p class="mb-3">Type to search compatible Wear OS watches.</p>
+                <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                    <span class="text-muted-foreground/80">Quick check:</span>
+                    <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">Pixel Watch 3</button>
+                    <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">Galaxy Watch7</button>
+                    <button type="button" class="quick-chip px-2.5 py-1 rounded-full border border-border bg-background hover:bg-muted text-foreground transition-colors">OnePlus Watch 2</button>
+                </div>
+            </div>
+        `;
 
-    fetch('/devices.json')
-        .then(r => r.json())
-        .then(data => {
-            const uniqueModels = new Map();
-            data.forEach(d => {
-                if (d['Model Name']) {
-                    const displayName = d.Manufacturer + ' ' + d['Model Name'];
-                    const corpus = (d.Brand + ' ' + d.Manufacturer + ' ' + d['Model Name'] + ' ' + d.Device).toLowerCase();
-                    uniqueModels.set(displayName, corpus);
-                }
+        const escapeHtml = str => str.replace(/[&<>"']/g, m => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[m]));
+
+        // Ignore spaces/dashes so "watch3", "watch 3" and "watch-3" all match
+        const squash = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        function attachChipHandlers() {
+            document.querySelectorAll('.quick-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    searchInput.value = chip.textContent.trim();
+                    handleSearch();
+                    searchInput.focus();
+                });
             });
-            devices = Array.from(uniqueModels.entries())
-                .map(([name, corpus]) => ({ name, corpus, squashed: squash(corpus) }))
-                .sort((a, b) => a.name.localeCompare(b.name));
-            devicesLoaded = true;
-            if (searchInput.value.trim()) render();
-        })
-        .catch(err => {
-            console.error('Failed to load devices:', err);
-            resultsContainer.innerHTML = 'Unable to load the device list right now. Email <a href="mailto:support@wearlo.app">support@wearlo.app</a> and we\'ll check for you.';
-        });
-
-    function render() {
-        const raw = searchInput.value.trim();
-        const query = raw.toLowerCase();
-        if (!query) {
-            resultsContainer.innerHTML = 'Type to search the compatibility list.';
-            return;
-        }
-        if (!devicesLoaded) {
-            resultsContainer.innerHTML = 'Loading device list…';
-            return;
         }
 
-        const tokens = query.split(/\s+/).filter(Boolean);
-        const q = squash(query);
-        const matches = devices.filter(d =>
-            tokens.every(t => d.corpus.includes(t) || d.squashed.includes(squash(t))) ||
-            (q.length >= 3 && d.squashed.includes(q))
-        );
+        fetch('/devices.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                const uniqueModels = new Map();
+                data.forEach(d => {
+                    const modelName = d['Model Name'] || d.Model || '';
+                    const manufacturer = d.Manufacturer || d.Brand || '';
+                    if (modelName) {
+                        const displayName = `${manufacturer} ${modelName}`.trim();
+                        const corpus = `${d.Brand || ''} ${manufacturer} ${modelName} ${d.Device || ''}`.toLowerCase();
+                        uniqueModels.set(displayName, corpus);
+                    }
+                });
+                devices = Array.from(uniqueModels.entries())
+                    .map(([name, corpus]) => ({ name, corpus, squashed: squash(corpus) }))
+                    .sort((a, b) => a.name.localeCompare(b.name));
+                devicesLoaded = true;
+                if (searchInput.value.trim()) handleSearch();
+            })
+            .catch(err => {
+                console.error('Failed to load devices:', err);
+                devicesLoaded = true;
+                resultsContainer.innerHTML = 'Unable to load the device list right now. Email <a href="mailto:support@wearlo.app" class="text-primary underline font-medium">support@wearlo.app</a> and we\'ll check for you.';
+            });
 
-        if (matches.length === 0) {
-            resultsContainer.innerHTML = `
-                <div class="device-item">
-                    <div class="device-status no">✕ Not supported</div>
-                    <div class="device-note">
-                        "<span class="device-match">${escapeHtml(raw)}</span>" isn't on our list of compatible watches.
-                        Wearlo requires a Wear OS watch. Double-check the spelling or try just the model name
-                        (e.g. "Watch 6"). Think this is a mistake? <a href="mailto:support@wearlo.app?subject=Device%20compatibility:%20${encodeURIComponent(raw)}">Let us know</a>.
+        function handleSearch() {
+            const rawVal = searchInput.value;
+            const query = rawVal.trim().toLowerCase();
+
+            if (rawVal.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            if (query.length === 0) {
+                resultsContainer.innerHTML = initialEmptyHtml;
+                attachChipHandlers();
+                return;
+            }
+
+            if (!devicesLoaded) {
+                resultsContainer.innerHTML = '<div class="py-2">Loading device list…</div>';
+                return;
+            }
+
+            const tokens = query.split(/\s+/).filter(Boolean);
+            const q = squash(query);
+            const matches = devices.filter(d =>
+                tokens.every(t => d.corpus.includes(t) || d.squashed.includes(squash(t))) ||
+                (q.length >= 3 && d.squashed.includes(q))
+            );
+
+            if (matches.length === 0) {
+                const encodedQuery = encodeURIComponent(rawVal.trim());
+                resultsContainer.innerHTML = `
+                    <div class="py-2">
+                        <div class="status-pill status-pill-no mb-2.5">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            Not supported
+                        </div>
+                        <p class="text-sm text-foreground mb-1 leading-snug">
+                            "<span class="font-semibold">${escapeHtml(rawVal.trim())}</span>" isn't on our list. Wearlo requires a Wear OS watch.
+                        </p>
+                        <p class="text-xs text-muted-foreground">
+                            Think this is a mistake? <a href="mailto:support@wearlo.app?subject=Device%20compatibility:%20${encodedQuery}" class="text-primary hover:underline font-medium">Let us know</a>.
+                        </p>
                     </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="pb-1.5 mb-1.5 border-b border-border flex items-center justify-between">
+                    <span class="status-pill status-pill-ok">
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Supported
+                    </span>
+                    <span class="text-xs text-muted-foreground">${matches.length} model${matches.length === 1 ? '' : 's'}</span>
+                </div>
+            `;
+
+            matches.slice(0, 10).forEach(match => {
+                html += `<div class="device-row flex items-center justify-between text-sm py-1.5">
+                    <span class="font-medium">${escapeHtml(match.name)}</span>
+                    <span class="wearos-tag">Wear OS</span>
                 </div>`;
-            return;
+            });
+
+            if (matches.length > 10) {
+                html += `<div class="pt-2 text-xs italic text-muted-foreground text-center">…and ${matches.length - 10} more variations</div>`;
+            }
+
+            resultsContainer.innerHTML = html;
         }
 
-        let html = `<div class="device-item"><div class="device-status ok">✓ Supported</div></div>`;
-        matches.slice(0, 10).forEach(m => {
-            html += `<div class="device-item"><span class="device-match">${escapeHtml(m.name)}</span> is supported.</div>`;
+        searchInput.addEventListener('input', handleSearch);
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            handleSearch();
+            searchInput.focus();
         });
-        if (matches.length > 10) {
-            html += `<div class="device-item" style="font-style: italic;">…and ${matches.length - 10} more variations</div>`;
-        }
-        resultsContainer.innerHTML = html;
-    }
 
-    searchInput.addEventListener('input', render);
+        attachChipHandlers();
+    })();
 </script>
 </body>
 </html>
