@@ -330,7 +330,6 @@
             );
 
             if (matches.length === 0) {
-                const encodedQuery = encodeURIComponent(rawVal.trim());
                 resultsContainer.innerHTML = `
                     <div class="py-2">
                         <div class="status-pill status-pill-no mb-2.5">
@@ -339,11 +338,8 @@
                             </svg>
                             Not supported
                         </div>
-                        <p class="text-sm text-foreground mb-1 leading-snug">
-                            "<span class="font-semibold">${escapeHtml(rawVal.trim())}</span>" isn't on our list. Wearlo requires Wear OS 3.5+ (Android 12+).
-                        </p>
-                        <p class="text-xs text-muted-foreground">
-                            Think this is a mistake? <a href="mailto:support@wearlo.app?subject=Device%20compatibility:%20${encodedQuery}" class="text-primary hover:underline font-medium">Let us know</a>.
+                        <p class="text-sm text-foreground leading-snug">
+                            "<span class="font-semibold">${escapeHtml(rawVal.trim())}</span>" isn't on the list. Wearlo requires Wear OS 3.5+ (Android 12+).
                         </p>
                     </div>
                 `;
