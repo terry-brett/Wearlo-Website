@@ -137,6 +137,11 @@
         </search>
         
         <h2 class="text-2xl font-semibold mt-12 mb-8">Frequently Asked Questions</h2>
+
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">How do presence tiers and "Lock when I'm…" work?</h3>
+            <p class="text-muted-foreground leading-relaxed">Instead of relying on raw meter estimates, Wearlo compares your watch's Bluetooth signal against your computer's Reference Signal and groups it into three tiers: <strong>Near Mac / Near PC</strong>, <strong>Nearby</strong>, and <strong>Away</strong>. On the dashboard, the <strong>Lock when I'm…</strong> slider lets you choose when your computer locks—<strong>Stepping away</strong> (~2 m), <strong>Across the room</strong> (~4 m, default), <strong>Far away</strong> (~8 m), or <strong>Out of range</strong> (connection loss). Your Reference Signal is captured automatically when you pair and keeps learning while you actively use your computer, or you can click <strong>Recalibrate</strong> in Settings at any time.</p>
+        </div>
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">How do "Safe Networks" work?</h3>
@@ -145,17 +150,17 @@
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">What is the Lock Delay setting?</h3>
-            <p class="text-muted-foreground leading-relaxed">The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your computer locks when you walk away. If your watch drops below the signal threshold or disconnects, Wearlo starts this countdown. If your watch reconnects or comes back into range before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
+            <p class="text-muted-foreground leading-relaxed">The Lock Delay gives you a customizable grace period (between 0 and 60 seconds, defaulting to 3 seconds) before your computer locks after your watch enters the <strong>Away</strong> tier (or disconnects when Lock on Disconnect is enabled). If your watch moves back to <strong>Nearby</strong> or <strong>Near Mac / Near PC</strong> before the timer expires, the lock is canceled. This prevents accidental locking caused by brief Bluetooth signal dips.</p>
         </div>
         
         <div class="mb-8">
-            <h3 class="text-lg font-semibold text-primary mb-2">What is Wake Distance and how does it work?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wake Distance controls how close you need to be for the computer's screen to automatically turn on as you approach. When your computer is asleep and your watch crosses into this radius, Wearlo automatically wakes the display (e.g. activating the Windows Hello camera or Mac login screen) so it's ready for you to unlock.</p>
+            <h3 class="text-lg font-semibold text-primary mb-2">How does automatic screen wake work?</h3>
+            <p class="text-muted-foreground leading-relaxed">With <strong>Wake display when I come back</strong> enabled in Settings (on by default), Wearlo automatically turns your computer's display on when the screen is locked and your watch moves closer again (for example, returning from <strong>Away</strong> to <strong>Nearby</strong> or <strong>Near Mac / Near PC</strong>), so your Windows Hello camera or Mac login screen is ready for you to sign in.</p>
         </div>
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">What happens if the watch battery dies or disconnects?</h3>
-            <p class="text-muted-foreground leading-relaxed">By default, if the Bluetooth link drops entirely (e.g., your watch dies or restarts), your computer will not automatically lock. However, you can enable the "Lock on Disconnect" setting in the app. If enabled, your computer will lock itself the moment the watch connection is lost. Wearlo will never trigger an auto-lock on a fresh launch unless the watch has successfully connected at least once during that session.</p>
+            <p class="text-muted-foreground leading-relaxed">If <strong>Lock on Disconnect</strong> is off (the default unless you select <strong>Out of range</strong> on the dashboard slider), a sudden Bluetooth drop from right next to your computer will not lock it. Turning on <strong>Lock on Disconnect</strong> (or choosing <strong>Out of range</strong>) locks your computer after the connection is lost. On Windows, if your watch was already <strong>Nearby</strong> or <strong>Away</strong> before disconnecting, it also starts the walk-away lock countdown. Wearlo will never trigger an auto-lock on a fresh launch unless the watch has connected and verified at least once during that session.</p>
         </div>
         
         <div class="mb-8">
@@ -166,18 +171,13 @@
         <h2 class="text-2xl font-semibold mt-16 mb-8 border-t border-border pt-12">Windows</h2>
 
         <div class="mb-8">
-            <h3 class="text-lg font-semibold text-primary mb-2">Why isn't my PC waking up when I walk up to it?</h3>
-            <p class="text-muted-foreground leading-relaxed">When your PC idles, Windows power management may suspend background apps and power down the Bluetooth adapter. If Bluetooth is suspended, the PC cannot detect your watch. To fix this, Wearlo includes a "Keep Awake Service". You can configure this slider in Settings (e.g. for 15 minutes) to keep the CPU and Bluetooth radio alive after locking, while still allowing your screens to power off normally to save energy.</p>
+            <h3 class="text-lg font-semibold text-primary mb-2">Why isn't my PC waking up or reconnecting when I walk up to it?</h3>
+            <p class="text-muted-foreground leading-relaxed">When your PC idles, Windows power management may suspend background apps and power down the Bluetooth adapter. To keep Bluetooth active while locked, the recommended option in Settings is to set Windows Power &amp; Sleep (<em>"When plugged in, put my device to sleep after"</em>) to <strong>Never</strong>. If you can't change that system setting or are on battery, you can enable the <strong>Keep Awake Timer</strong> slider in Settings instead to keep the PC running for a set duration while allowing the screen to turn off.</p>
         </div>
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">My PC locked while I was sitting right in front of it. How do I fix this?</h3>
-            <p class="text-muted-foreground leading-relaxed">If your body or hand blocks the watch's direct line of sight to the PC, the Bluetooth signal strength can drop significantly. Wearlo has a built-in "Obstruction Guard" (defaulting to 3 seconds) that provides a grace period for temporary blockages. You can increase this delay in Settings.</p>
-        </div>
-
-        <div class="mb-8">
-            <h3 class="text-lg font-semibold text-primary mb-2">What do the Advanced Proximity (Power User) settings do?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wearlo for Windows includes advanced sliders to precisely tune the distance algorithm. You can manually adjust the baseline 1-meter signal calibration (TxPower) if your watch consistently reads too close or too far. You can also adjust the Environmental Signal Falloff to account for reflective rooms (like metal desks) or dense obstacles (like large monitors), and tweak the Body Obstruction Filter to ignore weak readings.</p>
+            <p class="text-muted-foreground leading-relaxed">Wearlo automatically pauses locking while you're actively using your keyboard or mouse and adapts your Reference Signal to your normal desk posture. If your PC still locks when you sit still—for example, if your body or desk blocks the Bluetooth signal—click <strong>Recalibrate</strong> in Settings and stay at your computer for 10 seconds, choose a less sensitive stop on <strong>Lock when I'm…</strong> (such as <strong>Across the room</strong> or <strong>Far away</strong>), or increase <strong>Lock Delay</strong>.</p>
         </div>
     </main>
 
