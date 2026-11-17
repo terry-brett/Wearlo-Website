@@ -155,60 +155,87 @@
     .device-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
     .device-item:last-child { border-bottom: none; }
     .device-match { color: var(--foreground); font-weight: 500; }
+    .device-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 6px; }
+    .device-status.ok { color: #16a34a; }
+    .device-status.no { color: #dc2626; }
+    .device-note { color: var(--muted-foreground); line-height: 1.5; }
+    .device-note a { color: var(--primary); text-decoration: underline; }
 </style>
 <script>
     let devices = [];
+    let devicesLoaded = false;
     const searchInput = document.getElementById('device-search');
     const resultsContainer = document.getElementById('results-container');
 
+    const escapeHtml = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    // Ignore spaces/dashes so "watch3", "watch 3" and "watch-3" all match
+    const squash = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
     fetch('/devices.json')
-        .then(response => response.json())
+        .then(r => r.json())
         .then(data => {
             const uniqueModels = new Map();
             data.forEach(d => {
-                if(d['Model Name']) {
+                if (d['Model Name']) {
                     const displayName = d.Manufacturer + ' ' + d['Model Name'];
-                    const corpus = (d.Brand + ' ' + d['Model Name'] + ' ' + d.Device).toLowerCase();
+                    const corpus = (d.Brand + ' ' + d.Manufacturer + ' ' + d['Model Name'] + ' ' + d.Device).toLowerCase();
                     uniqueModels.set(displayName, corpus);
                 }
             });
             devices = Array.from(uniqueModels.entries())
-                .map(([name, corpus]) => ({name, corpus}))
-                .sort((a,b) => a.name.localeCompare(b.name));
+                .map(([name, corpus]) => ({ name, corpus, squashed: squash(corpus) }))
+                .sort((a, b) => a.name.localeCompare(b.name));
+            devicesLoaded = true;
+            if (searchInput.value.trim()) render();
         })
         .catch(err => {
             console.error('Failed to load devices:', err);
-            resultsContainer.innerHTML = 'Unable to load devices list at this time.';
+            resultsContainer.innerHTML = 'Unable to load the device list right now. Email <a href="mailto:support@wearlo.app">support@wearlo.app</a> and we\'ll check for you.';
         });
 
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        if (query.length === 0) {
+    function render() {
+        const raw = searchInput.value.trim();
+        const query = raw.toLowerCase();
+        if (!query) {
             resultsContainer.innerHTML = 'Type to search the compatibility list.';
             return;
         }
-
-        const tokens = query.split(/\s+/).filter(t => t.length > 0);
-        
-        const matches = devices.filter(d => {
-            return tokens.every(token => d.corpus.includes(token));
-        });
-        
-        if (matches.length === 0) {
-            resultsContainer.innerHTML = '<div class="device-item">No matching devices found.</div>';
+        if (!devicesLoaded) {
+            resultsContainer.innerHTML = 'Loading device list…';
             return;
         }
 
-        let html = '';
-        matches.slice(0, 10).forEach(match => {
-            html += `<div class="device-item"><span class="device-match">${match.name}</span> is supported.</div>`;
+        const tokens = query.split(/\s+/).filter(Boolean);
+        const q = squash(query);
+        const matches = devices.filter(d =>
+            tokens.every(t => d.corpus.includes(t) || d.squashed.includes(squash(t))) ||
+            (q.length >= 3 && d.squashed.includes(q))
+        );
+
+        if (matches.length === 0) {
+            resultsContainer.innerHTML = `
+                <div class="device-item">
+                    <div class="device-status no">✕ Not supported</div>
+                    <div class="device-note">
+                        "<span class="device-match">${escapeHtml(raw)}</span>" isn't on our list of compatible watches.
+                        Wearlo requires a Wear OS watch. Double-check the spelling or try just the model name
+                        (e.g. "Watch 6"). Think this is a mistake? <a href="mailto:support@wearlo.app?subject=Device%20compatibility:%20${encodeURIComponent(raw)}">Let us know</a>.
+                    </div>
+                </div>`;
+            return;
+        }
+
+        let html = `<div class="device-item"><div class="device-status ok">✓ Supported</div></div>`;
+        matches.slice(0, 10).forEach(m => {
+            html += `<div class="device-item"><span class="device-match">${escapeHtml(m.name)}</span> is supported.</div>`;
         });
         if (matches.length > 10) {
-            html += `<div class="device-item" style="font-style: italic;">...and ${matches.length - 10} more variations</div>`;
+            html += `<div class="device-item" style="font-style: italic;">…and ${matches.length - 10} more variations</div>`;
         }
-        
         resultsContainer.innerHTML = html;
-    });
+    }
+
+    searchInput.addEventListener('input', render);
 </script>
 </body>
 </html>
