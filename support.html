@@ -140,12 +140,20 @@
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">How do presence tiers and "Lock when I'm…" work?</h3>
-            <p class="text-muted-foreground leading-relaxed">Instead of relying on raw meter estimates, Wearlo compares your watch's Bluetooth signal against your computer's Reference Signal and groups it into three tiers: <strong>Near Mac / Near PC</strong>, <strong>Nearby</strong>, and <strong>Away</strong>. On the dashboard, the <strong>Lock when I'm…</strong> slider lets you choose when your computer locks—<strong>Stepping away</strong> (~2 m), <strong>Across the room</strong> (~4 m, default), <strong>Far away</strong> (~8 m), or <strong>Out of range</strong> (connection loss). Your Reference Signal is captured automatically when you pair and keeps learning while you actively use your computer, or you can click <strong>Recalibrate</strong> in Settings at any time.</p>
+            <p class="text-muted-foreground leading-relaxed mb-3">Instead of relying on raw meter estimates, Wearlo compares your watch's Bluetooth signal against your computer's Reference Signal and shows one of three tiers: <strong>Near Mac / Near PC</strong> (green), <strong>Nearby</strong> (yellow), or <strong>Away</strong> (red). While connected, <strong>only Away triggers a proximity lock</strong> - Near Mac / Near PC and Nearby never lock on their own, and returning to either cancels a pending lock countdown.</p>
+            <p class="text-muted-foreground leading-relaxed mb-3">The <strong>Lock when I'm…</strong> slider on the dashboard controls how much weaker the signal has to get before <strong>Nearby</strong> turns into <strong>Away</strong> and locks:</p>
+            <ul class="list-disc pl-5 space-y-1.5 text-muted-foreground leading-relaxed mb-3">
+                <li><strong>Stepping away (~2 m):</strong> Switches from Nearby to Away soon after you leave your computer.</li>
+                <li><strong>Across the room (~4 m, default):</strong> Stays in Nearby as you move around close by, then switches to Away across the room.</li>
+                <li><strong>Far away (~8 m):</strong> Keeps you in Nearby across a wider area and only switches to Away much farther away.</li>
+                <li><strong>Out of range:</strong> Disables the Away tier and locks only when the Bluetooth connection drops.</li>
+            </ul>
+            <p class="text-muted-foreground leading-relaxed">Your Reference Signal is captured automatically when you pair and keeps adapting while you actively use your computer, or you can click <strong>Recalibrate</strong> in Settings at any time.</p>
         </div>
         
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">How do "Safe Networks" work?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your computer is connected to one of these networks, the proximity auto-lock feature is completely bypassed—your computer will stay unlocked even if you walk away or your watch disconnects. Note for Mac users: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work.</p>
+            <p class="text-muted-foreground leading-relaxed">Wearlo allows you to designate specific WiFi networks (such as your home network) as Safe Networks. When your computer is connected to one of these networks, the proximity auto-lock feature is completely bypassed - your computer will stay unlocked even if you walk away or your watch disconnects. Note for Mac users: Due to macOS security requirements, you must grant Wearlo "Location Services" permissions for this feature to work.</p>
         </div>
         
         <div class="mb-8">
@@ -177,7 +185,7 @@
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">My PC locked while I was sitting right in front of it. How do I fix this?</h3>
-            <p class="text-muted-foreground leading-relaxed">Wearlo automatically pauses locking while you're actively using your keyboard or mouse and adapts your Reference Signal to your normal desk posture. If your PC still locks when you sit still—for example, if your body or desk blocks the Bluetooth signal—click <strong>Recalibrate</strong> in Settings and stay at your computer for 10 seconds, choose a less sensitive stop on <strong>Lock when I'm…</strong> (such as <strong>Across the room</strong> or <strong>Far away</strong>), or increase <strong>Lock Delay</strong>.</p>
+            <p class="text-muted-foreground leading-relaxed">Wearlo automatically pauses locking while you're actively using your keyboard or mouse and adapts your Reference Signal to your normal desk posture. If your PC still locks when you sit still - for example, if your body or desk blocks the Bluetooth signal - click <strong>Recalibrate</strong> in Settings and stay at your computer for 10 seconds, choose a less sensitive stop on <strong>Lock when I'm…</strong> (such as <strong>Across the room</strong> or <strong>Far away</strong>), or increase <strong>Lock Delay</strong>.</p>
         </div>
     </main>
 
