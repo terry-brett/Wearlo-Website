@@ -187,6 +187,15 @@
             <h3 class="text-lg font-semibold text-primary mb-2">My PC locked while I was sitting right in front of it. How do I fix this?</h3>
             <p class="text-muted-foreground leading-relaxed">Wearlo automatically pauses locking while you're actively using your keyboard or mouse and adapts your Reference Signal to your normal desk posture. If your PC still locks when you sit still - for example, if your body or desk blocks the Bluetooth signal - click <strong>Recalibrate</strong> in Settings and stay at your computer for 10 seconds, choose a less sensitive stop on <strong>Lock when I'm…</strong> (such as <strong>Across the room</strong> or <strong>Far away</strong>), or increase <strong>Lock Delay</strong>.</p>
         </div>
+
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">Windows settings to keep Bluetooth active</h3>
+            <p class="text-muted-foreground leading-relaxed mb-3">Windows can turn off or suspend Bluetooth when your PC goes to sleep. To keep Wearlo detecting your watch reliably:</p>
+            <ul class="list-disc pl-5 space-y-1.5 text-muted-foreground leading-relaxed">
+                <li><strong>Keep PC awake while plugged in:</strong> In <strong>Settings &rarr; System &rarr; Power &amp; battery &rarr; Screen, sleep, &amp; hibernate timeouts</strong>, set <strong>When plugged in, put my device to sleep after</strong> to <strong>Never</strong> (you can still let the screen turn off). When Windows enters Modern Standby / sleep, it suspends background Bluetooth scanning until you wake the PC.</li>
+                <li><strong>Bluetooth adapter power saving:</strong> In <strong>Device Manager &rarr; Bluetooth &rarr;</strong> your Bluetooth adapter (such as <strong>Intel(R) Wireless Bluetooth(R)</strong>) <strong>&rarr; Properties &rarr; Power Management</strong> (if shown on your hardware), uncheck <strong>Allow the computer to turn off this device to save power</strong>.</li>
+            </ul>
+        </div>
     </main>
 
     <footer class="relative z-10 border-t border-border mt-auto">
