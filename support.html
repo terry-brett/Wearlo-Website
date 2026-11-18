@@ -180,7 +180,8 @@
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">Why isn't my PC waking up or reconnecting when I walk up to it?</h3>
-            <p class="text-muted-foreground leading-relaxed">When your PC idles, Windows power management may suspend background apps and power down the Bluetooth adapter. To keep Bluetooth active while locked, the recommended option in Settings is to set Windows Power &amp; Sleep (<em>"When plugged in, put my device to sleep after"</em>) to <strong>Never</strong>. If you can't change that system setting or are on battery, you can enable the <strong>Keep Awake Timer</strong> slider in Settings instead to keep the PC running for a set duration while allowing the screen to turn off.</p>
+            <p class="text-muted-foreground leading-relaxed mb-3">Wearlo's wake and reconnect feature works as long as Windows keeps Bluetooth active while the screen is off. First, set Windows Power &amp; Sleep (<em>"When plugged in, put my device to sleep after"</em>) to <strong>Never</strong> in Settings (your display can still turn off), or use Wearlo's <strong>Keep Awake Timer</strong> slider if you're on battery or can't change system sleep settings.</p>
+            <p class="text-muted-foreground leading-relaxed">If you've already updated those power settings and your PC still won't wake or reconnect until you touch the keyboard or mouse, your PC is entering <strong>Windows Modern Standby</strong>. In Modern Standby, Windows suspends user-mode apps and Bluetooth LE scanning until hardware input wakes the system - as soon as you tap any key or move your mouse, Wearlo automatically refreshes its BLE scanner and reconnects within seconds. See the Windows settings below for details.</p>
         </div>
 
         <div class="mb-8">
@@ -190,10 +191,10 @@
 
         <div class="mb-8">
             <h3 class="text-lg font-semibold text-primary mb-2">Windows settings to keep Bluetooth active</h3>
-            <p class="text-muted-foreground leading-relaxed mb-3">Windows can turn off or suspend Bluetooth when your PC goes to sleep. To keep Wearlo detecting your watch reliably:</p>
             <ul class="list-disc pl-5 space-y-1.5 text-muted-foreground leading-relaxed">
-                <li><strong>Keep PC awake while plugged in:</strong> In <strong>Settings &rarr; System &rarr; Power &amp; battery &rarr; Screen, sleep, &amp; hibernate timeouts</strong>, set <strong>When plugged in, put my device to sleep after</strong> to <strong>Never</strong> (you can still let the screen turn off). When Windows enters Modern Standby / sleep, it suspends background Bluetooth scanning until you wake the PC.</li>
+                <li><strong>Keep PC awake while plugged in:</strong> In <strong>Settings &rarr; System &rarr; Power &amp; battery &rarr; Screen, sleep, &amp; hibernate timeouts</strong>, set <strong>When plugged in, put my device to sleep after</strong> to <strong>Never</strong> (you can still let the screen turn off).</li>
                 <li><strong>Bluetooth adapter power saving:</strong> In <strong>Device Manager &rarr; Bluetooth &rarr;</strong> your Bluetooth adapter (such as <strong>Intel(R) Wireless Bluetooth(R)</strong>) <strong>&rarr; Properties &rarr; Power Management</strong> (if shown on your hardware), uncheck <strong>Allow the computer to turn off this device to save power</strong>.</li>
+                <li><strong>Modern Standby:</strong> If your PC still suspends user-mode apps and BLE scanning when the screen turns off, Modern Standby can be disabled in Windows or your PC's BIOS/UEFI, though that is up to you. Once Modern Standby is disabled, Wearlo will stay connected and wake/reconnect while the screen is off.</li>
             </ul>
         </div>
     </main>
